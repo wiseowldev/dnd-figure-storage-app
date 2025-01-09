@@ -1,4 +1,5 @@
 using Api.Context;
+using Api.Services;
 
 namespace Api;
 
@@ -11,8 +12,10 @@ internal class Program
         builder.Services.AddOpenApi();
 
         builder.Services.AddTransient<StorageContext>();
+        builder.Services.AddTransient<FiguresService>();
 
         var app = builder.Build();
+        app.MapControllers();
         if (app.Environment.IsDevelopment()) app.MapOpenApi();
         app.Run();
     }

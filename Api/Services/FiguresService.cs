@@ -12,7 +12,15 @@ public class FiguresService(StorageContext context) {
     public async Task<Guid> AddFigure(Figure figure) {
         var newFigure = figure with { id = Guid.NewGuid() };
         await context.Figures.AddAsync(newFigure);
+        await context.SaveChangesAsync();
         return newFigure.id;
     }
 
+    public async Task DeleteFigure(string id) {
+        var entity = await context.Figures.FirstOrDefaultAsync(f => f.id.ToString() == id);
+        if(entity != null) {
+            context.Figures.Remove(entity);
+            await context.SaveChangesAsync();
+        } 
+    } 
 }

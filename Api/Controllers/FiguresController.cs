@@ -20,4 +20,7 @@ public class FiguresController(FiguresService service) : ControllerBase {
 
     [HttpPost] 
     public async Task<Guid> AddFigure([FromBody] AddFigureDto dto) => await service.AddFigure(dto.ToFigure());
+
+    [HttpDelete("/{id}")]
+    public async Task DeleteFigure([FromRoute] string id) => await service.DeleteFigure(id);
 }
